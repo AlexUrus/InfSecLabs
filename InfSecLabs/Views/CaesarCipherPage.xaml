@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="InfSecLabs.Views.CaesarCipherPage"
+             xmlns:vm ="clr-namespace:InfSecLabs.ViewModels"
+             Title="Шифр Цезаря">
+    <ContentPage.BindingContext>
+        <vm:CaesarCipherViewModel/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        
+        <VerticalStackLayout Grid.Column="1" Grid.Row="1">
+            <Button Text="Выбрать файл" Command="{Binding OpenInputTextCommand}"/>
+            <Label Text="Исходное сообщение"/>
+            <Label Text="{Binding InputText}"/>
+            <Button Text="Зашифровать сообщения" Command="{Binding EncryptTextCommand}"/>
+            <Label Text="Зашифрованное сообщение"/>
+            <Label Text="{Binding EncryptedText}"/>
+            <Button Text="Расшифровать сообщения" Command="{Binding DecryptTextCommand}"/>
+            <Label Text="Расшифрованное сообщение"/>
+            <Label Text="{Binding DecryptedText}"/>
+            <Button Text="Сохранить в файл" Command="{Binding SaveToFileCommand}"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
