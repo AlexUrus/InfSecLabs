@@ -12,6 +12,10 @@
         Title="Шифр Цезаря"
         ContentTemplate="{DataTemplate local:CaesarCipherPage}"
         Route="MainPage" />
+        <ShellContent
+        Title="Шифр Тритемиуса"
+        ContentTemplate="{DataTemplate local:TrithemiusCipherPage}"
+        Route="Trithemius" />
     </TabBar>
 
 </Shell>

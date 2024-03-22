@@ -8,13 +8,7 @@ namespace InfSecLabs.Ciphers
 {
     public class CaesarCipher : ICipher
     {
-        private int _shift;
-
-        public int Shift
-        {
-            get => _shift;
-            set => _shift = value;
-        }
+        public int Shift { get; set; }
 
         public CaesarCipher(int shift)
         {
