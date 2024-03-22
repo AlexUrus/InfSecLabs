@@ -13,11 +13,9 @@ namespace InfSecLabs.Services
                                                          0.0094, 0.0073, 0.0064, 0.0049, 0.0036, 0.0034, 0.0026, 0.002, 0.0016, 0.0004 };
         public static double ChiSquare(string text)
         {
-            // Преобразуйте текст в нижний регистр и удалите все символы, кроме букв
             text = text.ToLower();
             text = new string(text.Where(char.IsLetter).ToArray());
 
-            // Создайте словарь для подсчета фактической частоты букв
             Dictionary<char, int> actualFrequencies = new Dictionary<char, int>();
             foreach (char letter in text)
             {
@@ -27,11 +25,10 @@ namespace InfSecLabs.Services
                     actualFrequencies[letter] = 1;
             }
 
-            // Рассчитайте хи-квадрат Пирсона
             double chiSquare = 0;
             for (int i = 0; i < _expectedFrequencies.Length; i++)
             {
-                char letter = (char)('а' + i); // буквы алфавита
+                char letter = (char)('а' + i); 
                 double expected = _expectedFrequencies[i] * text.Length;
                 double observed = actualFrequencies.ContainsKey(letter) ? actualFrequencies[letter] : 0;
                 chiSquare += Math.Pow(observed - expected, 2) / expected;

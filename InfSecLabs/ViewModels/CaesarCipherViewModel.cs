@@ -51,6 +51,15 @@ namespace InfSecLabs.ViewModels
                 OnPropertyChanged();
             }
         }
+        public int Shift
+        {
+            get => _cipher.Shift;
+            set
+            {
+                _cipher.Shift = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand EncryptTextCommand { get; private set; }
         public ICommand DecryptTextCommand { get; private set; }
@@ -59,20 +68,18 @@ namespace InfSecLabs.ViewModels
         
 
         private CipherModel _cipherModel;
-
+        private CaesarCipher _cipher;
         public CaesarCipherViewModel()
         {
-            CaesarCipher cipher = new CaesarCipher(3);
-            _cipherModel = new CipherModel(cipher);
+            _cipher = new CaesarCipher(3);
+            _cipherModel = new CipherModel(_cipher);
             EncryptTextCommand = new Command(() => 
             {
-                EncryptedText = _cipherModel.EncryptInputText();
-                ChiSquare = Сryptanalysis.ChiSquare(EncryptedText);
+                EncryptedText = InputText != null ? _cipherModel.EncryptInputText(InputText) : string.Empty;
             });
             DecryptTextCommand = new Command(() =>
             {
-                DecryptedText = _cipherModel.DecryptText();
-                
+                DecryptedText = DecryptedText != null ? _cipherModel.DecryptText(EncryptedText) : string.Empty;
             });
             OpenInputTextCommand = new Command(ChooseFile);
             SaveToFileCommand = new Command(SaveToFile);
@@ -103,7 +110,8 @@ namespace InfSecLabs.ViewModels
                 if (fileResult != null)
                 {
                     string filePath = fileResult.FullPath;
-                    string _textToFile = $"{EncryptedText} ChiSquare = {ChiSquare}";
+                    string _textToFile = $"{EncryptedText} \n" +
+                        $"{GetCryptanalysis()}";
                     FileHandler.WriteToFile(_textToFile, filePath);
                 }
             }
@@ -111,6 +119,31 @@ namespace InfSecLabs.ViewModels
             {
                 InputText = $"Error reading file: {ex.Message}";
             }
+        }
+
+        private string GetCryptanalysis()
+        {
+            var sb = new StringBuilder();
+            for (int shift = 0; shift < 32; shift++)
+            {
+                var cipher = new CaesarCipher(shift);
+                var cipherModel = new CipherModel(cipher);
+                var decryptedText = cipherModel.DecryptText(EncryptedText);
+                string decryptedTextFormat;
+
+                if (decryptedText.Length > 20)
+                {
+                    decryptedTextFormat = decryptedText.Remove(19);
+                }
+                else
+                {
+                    decryptedTextFormat = decryptedText;
+                }
+
+                var chiSquare = Сryptanalysis.ChiSquare(decryptedText);
+                sb.AppendLine($"shift = {shift}, DecryptedText = {decryptedTextFormat}, ChiSquare = {chiSquare}");
+            }
+            return sb.ToString();
         }
 
     }

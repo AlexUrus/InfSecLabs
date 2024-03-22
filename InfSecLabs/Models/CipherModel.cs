@@ -20,14 +20,14 @@ namespace InfSecLabs.Models
             _cipher = cipher;
         }
 
-        public string EncryptInputText()
+        public string EncryptInputText(string inputText)
         {
-            return _cipher.Encrypt(InputText);
+            return _cipher.Encrypt(inputText);
         }
 
-        public string DecryptText()
+        public string DecryptText(string cipherText)
         {
-            return _cipher.Decrypt(СipherText);
+            return _cipher.Decrypt(cipherText);
         }
     }
 }
