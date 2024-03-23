@@ -8,7 +8,7 @@ namespace InfSecLabs.Ciphers
 {
     public class CaesarCipher : ICipher
     {
-        public int Shift { get; set; }
+        public int? Shift { get; set; }
 
         public CaesarCipher(int shift)
         {
@@ -17,12 +17,12 @@ namespace InfSecLabs.Ciphers
 
         public string Encrypt(string text)
         {
-            return Encrypt(text, Shift);
+            return Encrypt(text, Shift.Value);
         }
 
         public string Decrypt(string text)
         {
-            return Encrypt(text, 32 - Shift);
+            return Encrypt(text, 32 - Shift.Value);
         }
 
         private string Encrypt(string text, int shift)

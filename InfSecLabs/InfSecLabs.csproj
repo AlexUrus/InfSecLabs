@@ -63,6 +63,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\ByteCodingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\CaesarCipherPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

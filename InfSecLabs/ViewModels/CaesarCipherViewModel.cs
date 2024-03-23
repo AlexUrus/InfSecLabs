@@ -12,35 +12,6 @@ namespace InfSecLabs.ViewModels
 {
     public class CaesarCipherViewModel : BaseViewModel
     {
-        public string InputText 
-        {
-            get => _cipherModel.InputText;
-            set
-            {
-                _cipherModel.InputText = value;
-                OnPropertyChanged();
-            }
-        }
-        public string EncryptedText
-        {
-            get => _cipherModel.СipherText;
-            set
-            {
-                _cipherModel.СipherText = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string _decryptedText;
-        public string DecryptedText
-        {
-            get => _decryptedText;
-            set
-            {
-                _decryptedText = value;
-                OnPropertyChanged();
-            }
-        }
 
         private double _chiSquare;
         public double ChiSquare { 
@@ -53,22 +24,16 @@ namespace InfSecLabs.ViewModels
         }
         public int Shift
         {
-            get => _cipher.Shift;
+            get => _cipher.Shift.GetValueOrDefault();
             set
             {
                 _cipher.Shift = value;
                 OnPropertyChanged();
             }
         }
-
-        public ICommand EncryptTextCommand { get; private set; }
-        public ICommand DecryptTextCommand { get; private set; }
         public ICommand OpenInputTextCommand { get; private set; }
         public ICommand SaveToFileCommand { get; private set; }
         
-
-        private CipherModel _cipherModel;
-        private CaesarCipher _cipher;
         public CaesarCipherViewModel()
         {
             _cipher = new CaesarCipher(3);

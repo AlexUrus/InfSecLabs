@@ -8,7 +8,7 @@ namespace InfSecLabs.Ciphers
 {
     public class Trithemius : ICipher 
     {
-        public int Shift { get; set; }
+        public int? Shift { get; set; }
 
         private readonly int _alphabetSize = 32;
 
@@ -20,12 +20,12 @@ namespace InfSecLabs.Ciphers
 
         public string Decrypt(string text)
         {
-            return Decrypt(text, _alphabetSize - Shift);
+            return Decrypt(text, _alphabetSize - Shift.Value);
         }
 
         public string Encrypt(string text)
         {
-            return Encrypt(text, Shift);
+            return Encrypt(text, Shift.Value);
         }
 
         public string Encrypt(string input, int shift)

@@ -131,8 +131,13 @@ namespace InfSecLabs.ViewModels
                     decryptedTextFormat = decryptedText;
                 }
 
-                var chiSquare = Сryptanalysis.ChiSquare(decryptedText);
-                sb.AppendLine($"shift = {shift}, DecryptedText = {decryptedTextFormat}, ChiSquare = {chiSquare}");
+                EntropyCalculation entropyCalculation = new()
+                {
+                    Message = decryptedText
+                };
+                entropyCalculation.CalcAllFields();
+
+                sb.AppendLine($"shift = {shift}, DecryptedText = {decryptedTextFormat}, Entropy = {entropyCalculation.Entropy}");
             }
             return sb.ToString();
         }
